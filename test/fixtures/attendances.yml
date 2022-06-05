@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticket: one
+  status: 1
+  entry_time: 2022-06-03 21:13:31
+
+two:
+  ticket: two
+  status: 1
+  entry_time: 2022-06-03 21:13:31
