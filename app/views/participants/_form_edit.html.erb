@@ -12,8 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
+    <%= form.label :status, class: 'label' %>
+    <div class="control">
+      <%= form.select :status, [:pending, :approved], class: 'dropdown', placeholder: 'Total number of children ticket' %>
+    </div>
   </div>
 
   <div class="actions">

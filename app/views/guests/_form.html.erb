@@ -14,14 +14,14 @@
   <div class="field">
     <%= form.label :full_name, class: 'label' %>
     <div class="control">
-      <%= form.text_field :full_name, class: 'input', placeholder: 'Your Full Name' %>
+      <%= form.text_field :full_name, class: 'input', placeholder: 'Your Full Name', required: true %>
     </div>
   </div>
 
   <div class="field">
     <%= form.label :email, class: 'label' %>
     <div class="control">
-      <%= form.text_field :email, class: 'input', placeholder: 'example@gmail.com' %>
+      <%= form.text_field :email, class: 'input', placeholder: 'example@gmail.com', required: true %>
     </div>
   </div>
 
@@ -42,21 +42,21 @@
   <div class="field">
     <%= form.label :e_transfer_number, class: 'label' %>
     <div class="control">
-      <%= form.text_field :e_transfer_number, class: 'input', placeholder: 'E-Transfer Ref Number' %>
+      <%= form.text_field :e_transfer_number, class: 'input', placeholder: 'E-Transfer Ref Number', required: true %>
     </div>
   </div>
 
   <div class="field">
     <%= form.label :adult_ticket, class: 'label' %>
     <div class="control">
-      <%= form.text_field :adult_ticket, class: 'input', placeholder: 'Total number of adult ticket' %>
+      <%= form.number_field :adult_ticket, max: 10, class: 'input', placeholder: 'Total number of adult ticket' %>
     </div>
   </div>
 
   <div class="field">
     <%= form.label :children_ticket, class: 'label' %>
     <div class="control">
-      <%= form.text_field :children_ticket, class: 'input', placeholder: 'Total number of children ticket' %>
+      <%= form.number_field :children_ticket, max: 10, class: 'input', placeholder: 'Total number of children ticket' %>
     </div>
   </div>
 

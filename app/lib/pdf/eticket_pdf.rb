@@ -14,14 +14,6 @@ module Pdf
 
     DOCUMENT_MARGIN = [23, 46, 23, 46].freeze
 
-    TRANSACTION_PROVIDERS = {
-      account: 'User Brokrete Account',
-      exchange: 'Exchange',
-      manual: 'Manual',
-      paypal: 'PayPal',
-      stripe: 'Stripe'
-    }.freeze
-
     def initialize(options)
       super(margin: DOCUMENT_MARGIN)
       default_leading(3)
@@ -134,7 +126,7 @@ module Pdf
         ]
         details << [
           { content: 'ADDRESS', borders: [], text_color: '94A3B8' },
-          { content: '35 BROOKWELL DRIVE', borders: [] }
+          { content: @participant.phone_no, borders: [] }
         ]
 
         table(details)

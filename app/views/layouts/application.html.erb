@@ -8,7 +8,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%#= stylesheet_pack_tag 'application', media: 'all' %>
   </head>
 
   <body>
@@ -19,22 +19,23 @@
     </header>
 
       <div class="container">
-        <section id="main">
-          <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="#">
-                <img src="" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-              </a>
+<!--        <section id="main">-->
+<!--          <nav class="navbar" role="navigation" aria-label="main navigation">-->
+<!--            <div class="navbar-brand">-->
+<!--              <a class="navbar-item" href="#">-->
+<!--                DC-->
+<!--              </a>-->
 
 <!--              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">-->
 <!--                <span aria-hidden="true"><%#= link_to 'Basic QR Scanner', basic_qr_code_reader_path %></span>-->
 <!--                <span aria-hidden="true"><%#= link_to 'QR Scanner on Rails', qr_codes_path %></span>-->
 <!--                <span aria-hidden="true"></span>-->
 <!--              </a>-->
-            </div>
-          </nav>
-        </section>
-        <br/><br/>
+<!--            </div>-->
+<!--          </nav>-->
+<!--        </section>-->
+        <img src="https://thedrukcanada.com/img/dc_logo.jpeg" alt="Druk Canada" width="200" height="80">
+        <br/>
 
         <%= yield %>
       </div>
