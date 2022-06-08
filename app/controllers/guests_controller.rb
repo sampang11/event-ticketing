@@ -1,23 +1,8 @@
-class ParticipantsController < ApplicationController
-  include Drivers::Email
-  before_action :set_participant, only: %i[ show edit update destroy ]
-
-  # GET /participants or /participants.json
-  def index
-    @participants = Participant.all
-  end
-
-  # GET /participants/1 or /participants/1.json
-  def show
-  end
+class GuestsController < ApplicationController
 
   # GET /participants/new
   def new
     @participant = Participant.new
-  end
-
-  # GET /participants/1/edit
-  def edit
   end
 
   # POST /participants or /participants.json
@@ -36,27 +21,8 @@ class ParticipantsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /participants/1 or /participants/1.json
-  def update
-    respond_to do |format|
-      if @participant.update(participant_params)
-        format.html { redirect_to participant_url(@participant), notice: "Participant was successfully updated." }
-        format.json { render :show, status: :ok, location: @participant }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @participant.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /participants/1 or /participants/1.json
-  def destroy
-    @participant.destroy
-
-    respond_to do |format|
-      format.html { redirect_to participants_url, notice: "Participant was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  def show
+    @participant = Participant.find(params[:id])
   end
 
   private

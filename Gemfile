@@ -59,3 +59,4 @@ gem 'dotenv-rails'
 gem 'prawn'
 gem 'prawn-table'
 gem 'prawn-qrcode'
+gem "bulma-rails", "~> 0.8.0"

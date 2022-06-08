@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_04_011331) do
+ActiveRecord::Schema.define(version: 2022_06_06_011926) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer "ticket_id", null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2022_06_04_011331) do
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "address"
   end
 
   create_table "qr_codes", force: :cascade do |t|
