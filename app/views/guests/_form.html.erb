@@ -49,20 +49,31 @@
   <div class="field">
     <%= form.label :adult_ticket, class: 'label' %>
     <div class="control">
-      <%= form.number_field :adult_ticket, max: 10, class: 'input', placeholder: 'Total number of adult ticket' %>
+      <%= form.number_field :adult_ticket, max: 10, class: 'input', id: 'adult', placeholder: 'Total number of adult ticket' %>
     </div>
   </div>
 
   <div class="field">
     <%= form.label :children_ticket, class: 'label' %>
     <div class="control">
-      <%= form.number_field :children_ticket, max: 10, class: 'input', placeholder: 'Total number of children ticket' %>
+      <%= form.number_field :children_ticket, max: 10, class: 'input', id: 'child', placeholder: 'Total number of children ticket' %>
     </div>
   </div>
 
   <br/>
   <div class="actions">
-    <%= form.submit 'Register', class: "button is-success", style: "width: 100%" %>
+    <%= form.submit 'Register', class: "button is-success", style: "width: 100%", onSubmit: 'checkTickets()' %>
   </div>
   <br/><br/>
 <% end %>
+
+<script>
+  function checkTickets(){
+      var adult = document.getElementsById('adult').val();
+      var child = document.getElementsById('child').val();
+
+      if ((adult == 'undefinded' || adult == 0) && (child == 'undefined' || child == 0)) {
+          alert("Please select at least one ticket.")
+      }
+  }
+</script>

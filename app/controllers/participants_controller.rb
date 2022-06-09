@@ -23,6 +23,7 @@ class ParticipantsController < ApplicationController
   # POST /participants or /participants.json
   def create
     @participant = Participant.new(participant_params)
+
     return error_ticket unless validates_ticket
 
     respond_to do |format|
@@ -70,10 +71,7 @@ class ParticipantsController < ApplicationController
   end
 
   def error_ticket
-    respond_to do |format|
-      format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: "invalid ticket numbers", status: :unprocessable_entity }
-    end
+    redirect_to root_url, notice: "Please select at least one ticket"
   end
 
   def generate_tickets(participant)
