@@ -76,7 +76,7 @@ class ParticipantsController < ApplicationController
 
   def generate_tickets(participant)
     adult_tickets = ticket_params[:adult_ticket].to_i
-    if adult_tickets.present? && adult_tickets > 1
+    if adult_tickets.present? && adult_tickets.positive?
       adult_tickets.times do
         ticket_number = SecureRandom.uuid
         Ticket.create!(participant: participant, ticket_number: ticket_number, age_group: 1)
@@ -84,7 +84,7 @@ class ParticipantsController < ApplicationController
     end
 
     children_tickets = ticket_params[:children_ticket].to_i
-    if children_tickets.present? && children_tickets > 1
+    if children_tickets.present? && children_tickets.positive?
       children_tickets.times do
         ticket_number = SecureRandom.uuid
         Ticket.create!(participant: participant, ticket_number: ticket_number, age_group: 0)
