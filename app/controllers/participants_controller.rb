@@ -23,6 +23,7 @@ class ParticipantsController < ApplicationController
   # POST /participants or /participants.json
   def create
     @participant = Participant.new(participant_params)
+    return error_ticket unless validates_ticket
 
     respond_to do |format|
       if @participant.save
@@ -60,6 +61,20 @@ class ParticipantsController < ApplicationController
   end
 
   private
+
+  def validates_ticket
+    adult_tickets = ticket_params[:adult_ticket].to_i
+    children_tickets = ticket_params[:children_ticket].to_i
+
+    adult_tickets.positive? || children_tickets.positive?
+  end
+
+  def error_ticket
+    respond_to do |format|
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: "invalid ticket numbers", status: :unprocessable_entity }
+    end
+  end
 
   def generate_tickets(participant)
     adult_tickets = ticket_params[:adult_ticket].to_i

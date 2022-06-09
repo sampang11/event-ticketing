@@ -1,3 +1,15 @@
+<section id="main">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"><%= link_to 'Basic QR Scanner', basic_qr_code_reader_path %>&nbsp;&nbsp;&nbsp;</span>
+<!--        <span aria-hidden="true"><%#= link_to 'QR Scanner on Rails', qr_codes_path %></span>-->
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+</section>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Participants</h1>
@@ -11,7 +23,10 @@
       <th>Address</th>
       <th>E transfer number</th>
       <th>Status</th>
-      <th colspan="3"></th>
+      <th>Adult Ticket</th>
+      <th>Children Ticket</th>
+      <th>Amount</th>
+      <th colspan="3">Actions</th>
     </tr>
   </thead>
 
@@ -24,6 +39,10 @@
         <td><%= participant.address %></td>
         <td><%= participant.e_transfer_number %></td>
         <td><%= participant.status %></td>
+        <td><%= adult_tickets = participant.tickets.where(age_group: :adult).count %></td>
+        <td><%= child_tickets = participant.tickets.where(age_group: :children).count %></td>
+        <% amount = (50 * adult_tickets) + (20 * child_tickets) %>
+        <td>$<%= amount %></td>
         <td><%= link_to 'Show', participant %></td>
         <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
         <td><%= link_to 'Destroy', participant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
