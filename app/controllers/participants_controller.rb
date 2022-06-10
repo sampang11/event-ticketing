@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   # GET /participants or /participants.json
   def index
     require_user_logged_in!
-    @participants = Participant.all
+    @participants = Participant.all.order(created_at: :desc)
   end
 
   # GET /participants/1 or /participants/1.json

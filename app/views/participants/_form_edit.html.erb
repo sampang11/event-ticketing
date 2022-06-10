@@ -11,14 +11,13 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :status, class: 'label' %>
-    <div class="control">
-      <%= form.select :status, [:pending, :approved], class: 'dropdown', placeholder: 'Total number of children ticket' %>
+  <div class="field" style="text-align: center; padding-top: 20px;">
+    <div class="select is-primary">
+      <%= form.select :status, [:pending, :approved], placeholder: 'Total number of children ticket', style: "width: 100%"  %>
     </div>
   </div>
-
+  <br/>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Change Status', class: "button is-success", style: "width: 100%", onSubmit: 'checkTickets()' %>
   </div>
 <% end %>

@@ -1,6 +1,18 @@
-<h1 class="title">Approved Participant</h1>
+<div class="columns">
+  <div class="column"></div>
 
-<%= render 'form_edit', participant: @participant %>
+  <div class="column">
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <%= render 'form_edit', participant: @participant %>
+          <hr/>
+          <%= link_to 'Back', participants_path %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<%= link_to 'Show', @participant %> |
-<%= link_to 'Back', participants_path %>
+  <div class="column"></div>
+</div>
+
