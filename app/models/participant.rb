@@ -9,7 +9,7 @@ class Participant < ApplicationRecord
   }
 
   validates_presence_of :full_name, :email, :e_transfer_number
-  validates :email, email: true
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'Invalid email' }
 
   after_update :send_eticket_email, if: :approved?
 

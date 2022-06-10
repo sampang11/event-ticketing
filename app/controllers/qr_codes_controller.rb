@@ -1,4 +1,5 @@
 class QrCodesController < ApplicationController
+  before_action :require_user_logged_in!
   before_action :set_qr_data, only: :create
 
   def index

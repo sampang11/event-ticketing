@@ -1,44 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>QrCodeReaderDemo</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <title>QrCodeReaderDemo</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%#= stylesheet_pack_tag 'application', media: 'all' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <header>
-<!--      <span><%#= link_to 'Home', root_path %></span>-->
-<!--      <span><%#= link_to 'Basic QR Scanner', basic_qr_code_reader_path %></span>-->
-<!--      <span><%#= link_to 'QR Scanner on Rails', qr_codes_path %></span>-->
-    </header>
+<body>
 
-      <div class="container">
-<!--        <section id="main">-->
-<!--          <nav class="navbar" role="navigation" aria-label="main navigation">-->
-<!--            <div class="navbar-brand">-->
-<!--              <a class="navbar-item" href="#">-->
-<!--                DC-->
-<!--              </a>-->
+<div class="container">
+  <div style="text-align: right; padding-top: 20px">
+    <% if Current.user %>
+      <%= link_to 'Participants', participants_path %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <%= link_to 'Scan Ticket', basic_qr_code_reader_path %>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      Logged in as: <%= Current.user.email %><br/>
+      <%= button_to 'Logout', logout_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Login', sign_in_path %>
+    <% end %>
+  </div>
 
-<!--              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">-->
-<!--                <span aria-hidden="true"><%#= link_to 'Basic QR Scanner', basic_qr_code_reader_path %></span>-->
-<!--                <span aria-hidden="true"><%#= link_to 'QR Scanner on Rails', qr_codes_path %></span>-->
-<!--                <span aria-hidden="true"></span>-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </nav>-->
-<!--        </section>-->
-        <img src="https://thedrukcanada.com/img/dc_logo.jpeg" alt="Druk Canada" width="200" height="80">
-        <br/>
+  <img src="https://thedrukcanada.com/img/dc_logo.jpeg" alt="Druk Canada" width="200" height="80">
+  <br/>
+  <p class="notice" style="text-align: center; color: #B00100; font-size: 20px"><%= notice %></p>
+  <p class="notice"><%= alert %></p>
 
-        <%= yield %>
-      </div>
-    </section>
-  </body>
+  <%= yield %>
+</div>
+</body>
 </html>

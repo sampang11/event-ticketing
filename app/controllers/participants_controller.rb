@@ -4,6 +4,7 @@ class ParticipantsController < ApplicationController
 
   # GET /participants or /participants.json
   def index
+    require_user_logged_in!
     @participants = Participant.all
   end
 
@@ -29,10 +30,10 @@ class ParticipantsController < ApplicationController
     respond_to do |format|
       if @participant.save
         generate_tickets(@participant)
-        format.html { redirect_to guest_url(@participant), notice: "Participant was successfully created." }
+        format.html { redirect_to guest_path(@participant), notice: "Participant was successfully created." }
         format.json { render :show, status: :created, location: @participant }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to root_path, notice:  'Failed to register, please check the details and try again.' }
         format.json { render json: @participant.errors, status: :unprocessable_entity }
       end
     end

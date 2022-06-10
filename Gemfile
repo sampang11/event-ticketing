@@ -60,3 +60,4 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'prawn-qrcode'
 gem "bulma-rails", "~> 0.8.0"
+gem 'bcrypt', '~> 3.1.7'
