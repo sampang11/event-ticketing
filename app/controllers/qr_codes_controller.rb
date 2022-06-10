@@ -9,13 +9,24 @@ class QrCodesController < ApplicationController
   end
 
   def create
-    qr_code = QrCode.create(data: @qr_data)
-
-    redirect_to qr_code_path(qr_code)
+    ticket_number = @qr_data
+    ticket = Ticket.find_by(ticket_number: ticket_number)
+    if ticket.present?
+      if Attendance.find_by(ticket: ticket).present?
+        redirect_to basic_qr_code_reader_path, alert: 'This Ticket is already used for the enterance.'
+      else
+        qr_code = QrCode.create(data: @qr_data)
+        Attendance.create!(ticket: ticket, status: :entered, entry_time: Time.now)
+        redirect_to qr_code_path(qr_code), notice: "Scan success! Enjoy the event."
+      end
+    else
+      redirect_to basic_qr_code_reader_path, alert: 'Invalid Ticket'
+    end
   end
 
   def show
     @qr_code = QrCode.find(params[:id])
+    @ticket = Ticket.find_by(ticket_number: @qr_code.data)
   end
 
   private

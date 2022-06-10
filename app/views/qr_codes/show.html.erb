@@ -1,6 +1,10 @@
-<h1>QR Code Show Page</h1>
+<h1 id="notice" style="color: green"><%= notice %></h1>
 
-<p>QR data: <%= @qr_code.data %></p>
-<!--<p>Scanned on <%#= @qr_code.created_at.strftime('%Y-%m-%d') %></p>-->
-
-<%= link_to 'Back to recent QR scans', qr_codes_path %>
+<br/>
+<h1 class="title">Tick Details:</h1>
+<p>Ticket Number: <b><%= @qr_code.data %></b></p>
+<p>Ticket Type: <b><%= @ticket.age_group.capitalize %> Ticket</b></p>
+<p>Ticket Owner: <b><%= @ticket.participant.full_name %></b></p>
+<p>Enter Time: <b><%= @ticket.attendance.entry_time.strftime("%I:%M %p") %></b></p>
+<br/><br/>
+<%= link_to 'Scan new ticket', basic_qr_code_reader_path %>

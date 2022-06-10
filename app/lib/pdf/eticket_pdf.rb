@@ -122,7 +122,7 @@ module Pdf
         ]
         details << [
           { content: 'PHONE', borders: [], text_color: '94A3B8', width: 65 },
-          { content: @participant.phone_no, borders: [] }
+          { content: @participant.address, borders: [] }
         ]
         details << [
           { content: 'ADDRESS', borders: [], text_color: '94A3B8' },
