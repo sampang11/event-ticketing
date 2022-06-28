@@ -9,6 +9,9 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <style>
+
+  </style>
 </head>
 
 <body>
@@ -16,10 +19,8 @@
 <div class="container">
   <div class="columns">
     <div class="column">
-      <img src="https://thedrukcanada.com/img/dc_logo.jpeg" alt="Druk Canada" width="200" height="80">
-    </div>
-    <div class="column">
-      <div style="text-align: right; padding-top: 50px">
+      <img src="https://thedrukcanada.com/img/dc_logo.jpeg" alt="Druk Canada" width="140" height="80">
+      <span style="position: relative; bottom: 60px; padding-right: 0px;">
         <% if Current.user %>
           <%= link_to 'Participants', participants_path %>
           &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -30,7 +31,7 @@
         <% else %>
           <%= link_to 'Login', sign_in_path %>
         <% end %>
-      </div>
+      </span>
     </div>
   </div>
 
