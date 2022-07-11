@@ -1,0 +1,26 @@
+<table class="table is-striped">
+  <thead>
+  <tr>
+    <th>Sl. #</th>
+    <th>Full name</th>
+    <th>Status</th>
+    <th>Email</th>
+    <th>Phone no</th>
+    <th>Entery Time</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @attendance.each_with_index do |attendance, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= attendance.status %></td>
+      <td><%= attendance.ticket&.participant&.full_name %></td>
+      <td><%= attendance.ticket&.participant&.email %></td>
+      <td><%= attendance.ticket&.participant&.phone_no %></td>
+      <td><%= attendance.entry_time&.strftime("%I:%M %p") %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>

@@ -15,4 +15,8 @@ class AttendanceController < ApplicationController
     end
   end
 
+  def index
+    @attendance = Attendance.all
+  end
+
 end
