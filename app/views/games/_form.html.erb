@@ -38,9 +38,10 @@
   </div>
 
   <div class="field">
+    <% game_num = Game.where(competition_id: Competition.last.id).last.game_number.to_i || 0 %>
     <%= form.label :game_number %>
     <%= form.number_field :game_number, readonly: true,
-                          value: "#{Game.where(competition_id: Competition.last.id).last.game_number.to_i + 1}" %>
+                          value: "#{game_num + 1}" %>
   </div>
 
   <div class="actions">
