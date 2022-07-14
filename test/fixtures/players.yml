@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  image_data: MyText
+  team: one
+  position: MyString
+  player_role: 1
+
+two:
+  name: MyString
+  description: MyText
+  image_data: MyText
+  team: two
+  position: MyString
+  player_role: 1

@@ -17,23 +17,23 @@
 <body>
 
 <div class="container">
-  <div class="columns">
-    <div class="column">
-      <img src="https://thedrukcanada.com/img/dc_logo.jpeg" alt="Druk Canada" width="140" height="80">
-      <span style="position: relative; bottom: 60px; padding-right: 0px;">
-        <% if Current.user %>
-          <%= link_to 'Participants', participants_path %>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <%= link_to 'Scan Ticket', basic_qr_code_reader_path %>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          Logged in as: <%= Current.user.email %><br/>
-          <%= button_to 'Logout', logout_path, method: :delete %>
-        <% else %>
-          <%= link_to 'Login', sign_in_path %>
-        <% end %>
-      </span>
-    </div>
-  </div>
+<!--  <div class="columns">-->
+<!--    <div class="column">-->
+<!--      <img src="https://thedrukcanada.com/img/dc_logo.jpeg" alt="Druk Canada" width="140" height="80">-->
+<!--      <span style="position: relative; bottom: 60px; padding-right: 0px;">-->
+        <%# if Current.user %>
+          <%#= link_to 'Participants', participants_path %>
+<!--          &nbsp;&nbsp;|&nbsp;&nbsp;-->
+          <%#= link_to 'Scan Ticket', basic_qr_code_reader_path %>
+<!--          &nbsp;&nbsp;|&nbsp;&nbsp;-->
+<!--          Logged in as: <%#= Current.user.email %><br/>-->
+          <%#= button_to 'Logout', logout_path, method: :delete %>
+        <%# else %>
+          <%#= link_to 'Login', sign_in_path %>
+        <%# end %>
+<!--      </span>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <% if notice.present? %>
     <div class="notice notification is-success" style="text-align: center; color: #ffffff; font-size: 16px" id="validateNotice">
@@ -47,6 +47,7 @@
     </div>
   <% end %>
 
+  <br/><br/><br/><br/>
   <%= yield %>
 </div>
 <script>

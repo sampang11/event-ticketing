@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_one: 1
+  team_two: 1
+  team_one_score: 1
+  team_two_score: 1
+  game_week: 1
+  game_number: 1
+
+two:
+  team_one: 1
+  team_two: 1
+  team_one_score: 1
+  team_two_score: 1
+  game_week: 1
+  game_number: 1

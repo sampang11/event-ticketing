@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Games</h1>
+
+<table class="table is-striped">
+  <thead>
+  <tr>
+    <th>Team one</th>
+    <th>Team two</th>
+    <th>Team one score</th>
+    <th>Team two score</th>
+    <th>Game number</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @games.each do |game| %>
+    <tr>
+      <td><%= game.team_one_id.name %></td>
+      <td><%= game.team_two_id.name %></td>
+      <td><%= game.team_one_score %></td>
+      <td><%= game.team_two_score %></td>
+      <td><%= game.game_number %></td>
+      <td><%= link_to 'Show', game %></td>
+      <td><%= link_to 'Edit', edit_game_path(game) %></td>
+      <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Game', new_game_path %>
+
+<br/><br/>
+<h1>WEEK TABLE</h1>
+
+<table class="table is-striped">
+  <thead>
+  <tr>
+    <th>Team</th>
+    <th>Match Played</th>
+    <th>Wins</th>
+    <th>Lost</th>
+    <th>Draw</th>
+    <th>Points</th>
+    <th>GF</th>
+    <th>GA</th>
+    <th>GD</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% TeamCompetition.where(competition_id: Competition.last).order('points desc').each do |team_competition| %>
+    <% team = team_competition.team %>
+    <% week_table = WeekTable.where(team: team) %>
+    <tr>
+      <td><%= team.name %></td>
+      <td><%= week_table.sum(:match_played) || 0 %></td>
+      <td><%= week_table.where(result: :win).count || 0 %></td>
+      <td><%= week_table.where(result: :lost).count || 0 %></td>
+      <td><%= week_table.where(result: :draw).count || 0 %></td>
+      <td><%= week_table.sum(:points) || 0 %></td>
+      <td><%= week_table.sum(:goal_for) || 0 %></td>
+      <td><%= week_table.sum(:goal_against) || 0 %></td>
+      <td><%= week_table.sum(:goal_diff) || 0 %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br/><br/><br/><br/><br/><br/>

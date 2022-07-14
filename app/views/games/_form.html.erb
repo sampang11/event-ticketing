@@ -1,0 +1,49 @@
+<%= form_with(model: game, local: true) do |form| %>
+  <% if game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+        <% game.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h1>
+    <%= Competition.last.name %>
+    <%= form.hidden_field :competition_id, value: Competition.last.id %>
+  </h1>
+
+  <br/><br/>
+  <div class="field">
+    <%= form.label :team_one_id %>
+    <%= form.collection_select :team_one_id, Team.order(:name), :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_two_id %>
+    <%= form.collection_select :team_two_id, Team.order(:name), :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_one_score %>
+    <%= form.number_field :team_one_score, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_two_score %>
+    <%= form.number_field :team_two_score, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :game_number %>
+    <%= form.number_field :game_number, readonly: true,
+                          value: "#{Game.where(competition_id: Competition.last.id).last.game_number.to_i + 1}" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :competitions
+  resources :games
+  resources :players
+  resources :teams
   get 'guests/new'
   resources :participants
   resources :guests
@@ -6,7 +10,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get 'basic-qr-code-reader', to: 'basic_qr_codes#index'
   post 'attendance', to: 'attendance#add_attendance'
-  root to: "guests#new"
+  root to: "games#index"
 
   get 'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create', as: 'log_in'
