@@ -11,10 +11,16 @@
   <li><button onclick="resetTimer()">Reset</button></li>
 </ul>
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
-<%= render 'form', game: @game %>
+<div class="columns">
+  <div class="column"></div>
+  <div class="column">
+    <%= render 'form', game: @game %>
+    <br/><br/>
+    <%= link_to 'Back', games_path %>
+  </div>
+  <div class="column"></div>
+</div>
 
-<%= link_to 'Back', games_path %>
 
 <script>
     const timer = document.getElementById('stopwatch');
@@ -94,13 +100,13 @@
     #stopwatch {
         font-size: 100px;
         position: absolute;
-        top: 45%;
+        top: 10%;
         left: 50%;
         transform: translate(-50%, -55%);
     }
     #buttons {
         position: absolute;
-        top: 55%;
+        top: 20%;
         left: 48.4%;
         transform: translate(-51.6%, -45%);
     }

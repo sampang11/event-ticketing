@@ -1,19 +1,29 @@
 <p id="notice"><%= notice %></p>
 
+<%= image_tag(@team.logo_url, width: 120, height: 120) if @team.logo %>
+
 <p>
-  <strong>Name:</strong>
-  <%= @team.name %>
+  <strong><%= @team.name %></strong>
 </p>
 
 <p>
-  <strong>Description:</strong>
   <%= @team.description %>
-</p>
-
-<p>
-  <strong>Logo:</strong>
-  <%= image_tag(@team.logo_url, width: 250, height: 250) if @team.logo %>
 </p>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
+
+<br/><br/><br/>
+<p style="padding-left: 30px; font-size: 20px; font-weight: bold; padding-bottom: 20px">Players</p>
+<div class="container is-fluid">
+  <div class="columns is-multiline">
+    <% Player.where(team: @team).each do |player| %>
+      <div class="column is-one-quarter">
+        <%= image_tag(player.image_url, width: 250, height: 300) if player.image %><br/>
+        <%= player.name %><br/>
+        <%= player.player_role %><br/>
+        <%= player.position %><br/>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -11,40 +11,49 @@
     </div>
   <% end %>
 
-  <h1>
+  <h1 style="font-weight: bold; padding-top: 20%; padding-bottom: 5%;">
     <%= Competition.last.name %>
     <%= form.hidden_field :competition_id, value: Competition.last.id %>
   </h1>
 
-  <br/><br/>
   <div class="field">
-    <%= form.label :team_one_id %>
-    <%= form.collection_select :team_one_id, Team.order(:name), :id, :name %>
+    <div class="select is-primary">
+      <%= form.collection_select :team_one_id, Team.order(:name), :id, :name, style: "width: 100%" %>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :team_two_id %>
-    <%= form.collection_select :team_two_id, Team.order(:name), :id, :name %>
+    <%= form.label :team_one_score, class: 'label' %>
+    <div class="control">
+      <%= form.number_field :team_one_score, required: true, class: 'input' %>
+    </div>
+  </div>
+
+  <h1 style="font-weight: bold; text-align: center; font-size: 30px">Vs.</h1>
+  <br/>
+
+  <div class="field">
+    <div class="select is-primary">
+      <%= form.collection_select :team_two_id, Team.order(:name), :id, :name %>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :team_one_score %>
-    <%= form.number_field :team_one_score, required: true %>
-  </div>
-
-  <div class="field">
-    <%= form.label :team_two_score %>
-    <%= form.number_field :team_two_score, required: true %>
+    <%= form.label :team_two_score, class: 'label' %>
+    <div class="control">
+      <%= form.number_field :team_two_score, required: true, class: 'input' %>
+    </div>
   </div>
 
   <div class="field">
     <% game_num = Game.where(competition_id: Competition.last.id)&.last&.game_number.to_i %>
-    <%= form.label :game_number %>
-    <%= form.number_field :game_number, readonly: true,
-                          value: "#{game_num + 1}" %>
+    <%= form.label :game_number, class: 'label' %>
+    <div class="control">
+      <%= form.number_field :game_number, readonly: true, class: 'input', value: "#{game_num + 1}" %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "button is-success" %>
   </div>
 <% end %>

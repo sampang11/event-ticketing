@@ -1,6 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Games</h1>
+<h1 style="font-weight: bold">SEASON TABLE</h1>
+<br/>
+
+<table class="table is-striped">
+  <thead>
+  <tr>
+    <th>Team</th>
+    <th>Points</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% TeamCompetition.order('points desc').each do |team_competition| %>
+    <% team = team_competition.team %>
+    <tr>
+      <td><a href="<%= team_path(team.id) %>"><%= team.name %></a></td>
+      <td><%= team_competition.points.to_i || 0 %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br/>
+
+<h1 style="font-weight: bold">GAMES OF THE WEEK</h1>
+<br/>
 
 <table class="table is-striped">
   <thead>
@@ -17,8 +42,8 @@
   <tbody>
   <% @games.each do |game| %>
     <tr>
-      <td><%= game.team_one_id.name %></td>
-      <td><%= game.team_two_id.name %></td>
+      <td><a href="<%= team_path(game.team_one_id.id) %>"><%= game.team_one_id.name %></a></td>
+      <td><a href="<%= team_path(game.team_two_id.id) %>"><%= game.team_two_id.name %></a></td>
       <td><%= game.team_one_score %></td>
       <td><%= game.team_two_score %></td>
       <td><%= game.game_number %></td>
@@ -30,12 +55,11 @@
   </tbody>
 </table>
 
-<br>
+<%= link_to 'New Game', new_game_path, class: "button is-success" %>
 
-<%= link_to 'New Game', new_game_path %>
-
-<br/><br/>
-<h1>WEEK TABLE</h1>
+<br/><br/><br/><br/>
+<h1 style="font-weight: bold">WEEK TABLE</h1>
+<br/>
 
 <table class="table is-striped">
   <thead>
@@ -57,7 +81,7 @@
     <% team = team_competition.team %>
     <% week_table = WeekTable.where(team: team) %>
     <tr>
-      <td><%= team.name %></td>
+      <td><a href="<%= team_path(team.id) %>"><%= team.name %></a></td>
       <td><%= week_table.sum(:match_played) || 0 %></td>
       <td><%= week_table.where(result: :win).count || 0 %></td>
       <td><%= week_table.where(result: :lost).count || 0 %></td>
