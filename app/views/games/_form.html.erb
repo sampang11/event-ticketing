@@ -46,10 +46,10 @@
   </div>
 
   <div class="field">
-    <% game_num = Game.where(competition_id: Competition.last.id)&.last&.game_number.to_i %>
+    <% game_num = Game.where(competition_id: Competition.last.id).order(:game_number)&.last&.game_number.to_i %>
     <%= form.label :game_number, class: 'label' %>
     <div class="control">
-      <%= form.number_field :game_number, readonly: true, class: 'input', value: "#{game_num + 1}" %>
+      <%= form.number_field :game_number, class: 'input', value: "#{game_num + 1}" %>
     </div>
   </div>
 

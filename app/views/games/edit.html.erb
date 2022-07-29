@@ -1,6 +1,65 @@
 <h1>Editing Game</h1>
 
-<%= render 'form', game: @game %>
+<% game = @game %>
+<%= form_with(model: game, local: true) do |form| %>
+  <% if game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+        <% game.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h1 style="font-weight: bold; padding-top: 20%; padding-bottom: 5%;">
+    <%= Competition.last.name %>
+    <%= form.hidden_field :competition_id, value: Competition.last.id %>
+  </h1>
+
+  <div class="field">
+    <div class="select is-primary">
+      <%= form.collection_select :team_one_id, Team.all, :id, :name, { :selected => game.team_one_id }, style: "width: 100%" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_one_score, class: 'label' %>
+    <div class="control">
+      <%= form.number_field :team_one_score, required: true, class: 'input' %>
+    </div>
+  </div>
+
+  <h1 style="font-weight: bold; text-align: center; font-size: 30px">Vs.</h1>
+  <br/>
+
+  <div class="field">
+    <div class="select is-primary">
+      <%= form.collection_select :team_two_id, Team.all, :id, :name, { :selected => game.team_two_id } %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_two_score, class: 'label' %>
+    <div class="control">
+      <%= form.number_field :team_two_score, required: true, class: 'input' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <% game_num = Game.where(competition_id: Competition.last.id)&.last&.game_number.to_i %>
+    <%= form.label :game_number, class: 'label' %>
+    <div class="control">
+      <%= form.number_field :game_number, class: 'input'%>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "button is-success" %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @game %> |
 <%= link_to 'Back', games_path %>

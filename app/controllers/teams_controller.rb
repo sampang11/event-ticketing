@@ -24,7 +24,6 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     respond_to do |format|
-      binding.pry
       if @team.save
         format.html { redirect_to team_url(@team), notice: "Team was successfully created." }
         format.json { render :show, status: :created, location: @team }

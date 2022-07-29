@@ -5,10 +5,16 @@ class Game < ApplicationRecord
 
   after_save :save_week_table
 
+  after_destroy :delete_from_week_table
+
   def save_week_table
     save_team_one_record
     save_team_two_record
-    # update_team_position
+  end
+
+  def delete_from_week_table
+    delete_team_one_record
+    delete_team_two_record
   end
 
   def save_team_one_record
@@ -26,8 +32,16 @@ class Game < ApplicationRecord
     match_played = current_week_game.where("(games.team_one_id = ? AND games.team_two_id = ?) OR
 (games.team_two_id = ? AND games.team_one_id = ?)", team_one_id, team_two_id, team_one_id, team_two_id)
 
-    WeekTable.create!(team: team_one_id, points: points, goal_for: team_one_score, goal_against: team_two_score,
-                      goal_diff: (team_one_score - team_two_score), match_played: match_played.count, result: result)
+    week_table = WeekTable.find_by("created_at >= ?", self.created_at)
+    if week_table.nil?
+      WeekTable.create!(team: team_one_id, points: points, goal_for: team_one_score, goal_against: team_two_score,
+                        goal_diff: (team_one_score - team_two_score), match_played: match_played.count, result: result,
+                        competition_id: competition_id)
+    else
+      week_table.update!(team: team_one_id, points: points, goal_for: team_one_score, goal_against: team_two_score,
+                         goal_diff: (team_one_score - team_two_score), match_played: match_played.count, result: result,
+                         competition_id: competition_id)
+    end
     team_competition = TeamCompetition.find_by(team_id: team_one_id, competition_id: competition_id)
     team_competition_pts = team_competition.points.to_i + points
     team_competition.update!(points: team_competition_pts)
@@ -48,18 +62,54 @@ class Game < ApplicationRecord
     match_played = current_week_game.where("(games.team_one_id = ? AND games.team_two_id = ?) OR
 (games.team_two_id = ? AND games.team_one_id = ?)", team_one_id, team_two_id, team_one_id, team_two_id)
 
-    WeekTable.create!(team: team_two_id, points: points, goal_for: team_two_score, goal_against: team_one_score,
-                      goal_diff: (team_two_score - team_one_score), match_played: match_played.count, result: result)
+    week_table = WeekTable.find_by("created_at >= ?", self.created_at)
+    if week_table.nil?
+      WeekTable.create!(team: team_two_id, points: points, goal_for: team_two_score, goal_against: team_one_score,
+                        goal_diff: (team_two_score - team_one_score), match_played: match_played.count, result: result,
+                        competition_id: competition_id)
+    else
+      week_table.update!(team: team_two_id, points: points, goal_for: team_two_score, goal_against: team_one_score,
+                         goal_diff: (team_two_score - team_one_score), match_played: match_played.count, result: result,
+                         competition_id: competition_id)
+    end
+
     team_competition = TeamCompetition.find_by(team_id: team_two_id, competition_id: competition_id)
     team_competition_pts = team_competition.points.to_i + points
     team_competition.update!(points: team_competition_pts)
   end
 
-  def update_team_position
-    Team.all.each do |team|
-      points = current_week_game.find_by(team: team).sum(:points)
-      team.update(weekly_point: points)
+  def delete_team_one_record
+    week_table = WeekTable.find_by("created_at >= ?", self.created_at)
+    week_table.destroy!
+
+    if team_one_score > team_two_score
+      points = 3
+    elsif team_one_score == team_two_score
+      points = 1
+    else
+      points = 0
     end
+
+    team_competition = TeamCompetition.find_by(team_id: team_one_id, competition_id: competition_id)
+    team_competition_pts = team_competition.points.to_i - points
+    team_competition.update!(points: team_competition_pts)
+  end
+
+  def delete_team_two_record
+    week_table = WeekTable.find_by("created_at >= ?", self.created_at)
+    week_table.destroy!
+
+    if team_two_score > team_one_score
+      points = 3
+    elsif team_two_score == team_one_score
+      points = 1
+    else
+      points = 0
+    end
+
+    team_competition = TeamCompetition.find_by(team_id: team_two_id, competition_id: competition_id)
+    team_competition_pts = team_competition.points.to_i - points
+    team_competition.update!(points: team_competition_pts)
   end
 
   def current_week_game

@@ -12,11 +12,11 @@
   </thead>
 
   <tbody>
-  <% TeamCompetition.order('points desc').each do |team_competition| %>
+  <% TeamCompetition.where(competition_id: Competition.last).order('points desc').each do |team_competition| %>
     <% team = team_competition.team %>
     <tr>
       <td><a href="<%= team_path(team.id) %>"><%= team.name %></a></td>
-      <td><%= team_competition.points.to_i || 0 %></td>
+      <td><%= TeamCompetition.where(team: team).sum(:points).to_i || 0 %></td>
     </tr>
   <% end %>
   </tbody>
@@ -40,7 +40,7 @@
   </thead>
 
   <tbody>
-  <% @games.each do |game| %>
+  <% @games.where(competition_id: Competition.last.id).order(:game_number).each do |game| %>
     <tr>
       <td><a href="<%= team_path(game.team_one_id.id) %>"><%= game.team_one_id.name %></a></td>
       <td><a href="<%= team_path(game.team_two_id.id) %>"><%= game.team_two_id.name %></a></td>
@@ -79,10 +79,10 @@
   <tbody>
   <% TeamCompetition.where(competition_id: Competition.last).order('points desc').each do |team_competition| %>
     <% team = team_competition.team %>
-    <% week_table = WeekTable.where(team: team) %>
+    <% week_table = WeekTable.where(team: team, competition: Competition.last) %>
     <tr>
       <td><a href="<%= team_path(team.id) %>"><%= team.name %></a></td>
-      <td><%= week_table.sum(:match_played) || 0 %></td>
+      <td><%= week_table.count || 0 %></td>
       <td><%= week_table.where(result: :win).count || 0 %></td>
       <td><%= week_table.where(result: :lost).count || 0 %></td>
       <td><%= week_table.where(result: :draw).count || 0 %></td>

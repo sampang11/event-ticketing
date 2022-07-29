@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_13_025807) do
+ActiveRecord::Schema.define(version: 2022_07_26_173741) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer "ticket_id", null: false
@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(version: 2022_07_13_025807) do
     t.integer "result"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "competition_id"
+    t.index ["competition_id"], name: "index_week_tables_on_competition_id"
     t.index ["team_id"], name: "index_week_tables_on_team_id"
   end
 
@@ -120,5 +122,6 @@ ActiveRecord::Schema.define(version: 2022_07_13_025807) do
   add_foreign_key "team_competitions", "competitions"
   add_foreign_key "team_competitions", "teams"
   add_foreign_key "tickets", "participants"
+  add_foreign_key "week_tables", "competitions"
   add_foreign_key "week_tables", "teams"
 end
